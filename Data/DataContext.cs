@@ -11,7 +11,6 @@ namespace tutorial.Data
         }
 
         public DbSet<CompleteQ> CompleteQ { get; set; }
-        public DbSet<FilterQ> Q_data { get; set; }
         public DbSet<Queue_Branch> Queue_Branch { get; set; }
         public DbSet<QueueView> QueueViews { get; set; }
 
@@ -33,11 +32,6 @@ namespace tutorial.Data
                 .HasOne(c => c.Queue_Branch)  // CompleteQ มี Queue_Branch หนึ่งตัว
                 .WithMany(b => b.CompleteQs)  // Queue_Branch มี CompleteQ หลายตัว
                 .HasForeignKey(c => c.BranchID);  // Foreign Key จาก CompleteQ คือ BranchID
-
-            // ปิดการใช้งานคีย์สำหรับ FilterQ
-            modelBuilder.Entity<FilterQ>()
-                .ToTable("FilterQ")
-                .HasNoKey();  // ไม่มีคีย์หลักใน FilterQ
 
             // ตั้งค่า QueueView ให้ BranchID เป็นคีย์หลัก
             modelBuilder.Entity<QueueView>()
