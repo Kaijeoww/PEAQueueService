@@ -139,3 +139,4 @@ C:\Users\User\source\repos\tutorial\tutorial\obj\Debug\net8.0\refint\tutorial.dl
 C:\Users\User\source\repos\tutorial\tutorial\obj\Debug\net8.0\tutorial.pdb
 C:\Users\User\source\repos\tutorial\tutorial\obj\Debug\net8.0\tutorial.genruntimeconfig.cache
 C:\Users\User\source\repos\tutorial\tutorial\obj\Debug\net8.0\ref\tutorial.dll
+c:\Users\User\source\repos\tutorial\tutorial\obj\Debug\net8.0\tutorial.sourcelink.json

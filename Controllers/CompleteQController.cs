@@ -33,7 +33,6 @@ namespace tutorial.Controllers
         [HttpGet]
         public ActionResult Queue(int page = 1, int pageSize = 1000)
         {
-            // ดึงข้อมูล Branches จาก Queue_Branch สำหรับ Dropdown
             var branches = _context.Queue_Branch
                                    .Select(b => new SelectListItem
                                    {
@@ -42,7 +41,6 @@ namespace tutorial.Controllers
                                    }).ToList();
             ViewBag.BranchID = new SelectList(branches, "Value", "Text");
 
-            // ดึงข้อมูลเดือนจาก CompleteQ สำหรับ Dropdown
             var months = new List<SelectListItem>
     {
         new SelectListItem { Value = "1", Text = "มกราคม" },
@@ -61,7 +59,6 @@ namespace tutorial.Controllers
             ViewBag.StartMonth = new SelectList(months, "Value", "Text");
             ViewBag.EndMonth = new SelectList(months, "Value", "Text");
 
-            // ดึงข้อมูลปีจาก CompleteQ สำหรับ Dropdown
             var years = new List<SelectListItem>
         {
             new SelectListItem { Value = "2022", Text = "2022" },
@@ -79,9 +76,9 @@ namespace tutorial.Controllers
            .Select(q => new CompleteQ
            {
                QNumber = q.QNumber ?? "N/A",
-               QPress = q.QPress.HasValue ? q.QPress.Value : DateTime.MinValue,  // ตรวจสอบ QPress ถ้าเป็น null ให้แทนด้วย DateTime.MinValue
-               QBegin = q.QBegin.HasValue ? q.QBegin.Value : DateTime.MinValue,  // ตรวจสอบ QBegin ถ้าเป็น null ให้แทนด้วย DateTime.MinValue
-               QEnd = q.QEnd.HasValue ? q.QEnd.Value : DateTime.MinValue,        // ตรวจสอบ QEnd ถ้าเป็น null ให้แทนด้วย DateTime.MinValue
+               QPress = q.QPress.HasValue ? q.QPress.Value : DateTime.MinValue, 
+               QBegin = q.QBegin.HasValue ? q.QBegin.Value : DateTime.MinValue, 
+               QEnd = q.QEnd.HasValue ? q.QEnd.Value : DateTime.MinValue,      
                CounterID = q.CounterID ?? "N/A",
                UserID = q.UserID ?? "N/A",
                QStatus = q.QStatus ?? "N/A",
@@ -91,7 +88,6 @@ namespace tutorial.Controllers
            .OrderBy(q => q.QPress)
            .ToList();
 
-                // ดึงข้อมูลจากฐานข้อมูลที่สอง
                 var Chondata = _CDataContext.CompleteQ
                     .Where(q => q.QNumber != null && q.QBegin.HasValue && q.QEnd.HasValue && q.QPress.HasValue && q.CounterID != null && q.UserID != null && q.QStatus != null && q.BranchID != null && q.ServiceGroupID != null)
                     .Select(q => new CompleteQ
@@ -109,11 +105,10 @@ namespace tutorial.Controllers
                     .OrderBy(q => q.QPress)
                     .ToList();
 
-                // รวมข้อมูลและจัดการค่าซ้ำ
                 var combined = Maindata
                     .Union(Chondata)
-                    .OrderBy(q => q.QPress)  // อาจจะจัดเรียงตาม QPress
-            .Skip((page - 1) * pageSize) // ข้ามข้อมูลตามหน้าที่ต้องการ
+                    .OrderBy(q => q.QPress)  
+            .Skip((page - 1) * pageSize) 
             .Take(pageSize)
                     .ToList();
 
@@ -132,7 +127,6 @@ namespace tutorial.Controllers
     (q.QBegin.Value - q.QPress.Value).TotalSeconds >= 0 ?
     TimeSpan.FromSeconds((q.QBegin.Value - q.QPress.Value).TotalSeconds).ToString(@"hh\:mm\:ss") : "00:00:00" : "00:00:00",
 
-                    // สำหรับ TimeToEndFormatted
                     TimeToEndFormatted = q.QEnd.HasValue && q.QPress.HasValue ?
     (q.QEnd.Value - q.QPress.Value).TotalSeconds >= 0 ?
     TimeSpan.FromSeconds((q.QEnd.Value - q.QPress.Value).TotalSeconds).ToString(@"hh\:mm\:ss") : "00:00:00" : "00:00:00"
@@ -160,7 +154,6 @@ namespace tutorial.Controllers
         {
             try
             {
-                // Populate dropdown lists for BranchID, StartMonth, EndMonth, and Year
                 var branches = _context.Queue_Branch
                                        .Select(b => new SelectListItem
                                        {
@@ -198,7 +191,6 @@ namespace tutorial.Controllers
 
                 Debug.WriteLine($"BranchID: {branchID}, StartMonth: {startmonth}, EndMonth: {endmonth}, StartYear: {startyear}, EndYear: {endyear}");
 
-                // ตรวจสอบข้อมูลว่าเดือนและปีถูกต้องหรือไม่
                 if (int.TryParse(startmonth, out int startMonthNum) && int.TryParse(endmonth, out int endMonthNum))
                 {
                     DateTime startDate = new DateTime(startyear, startMonthNum, 1);
@@ -206,7 +198,6 @@ namespace tutorial.Controllers
 
                     Debug.WriteLine($"StartDate: {startDate}, EndDate: {endDate}");
 
-                    // Query the data based on branchID, date range, and year
                     var Maindata = _context.CompleteQ
                                    .Where(q => q.QPress >= startDate && q.QPress <= endDate &&
                                                q.BranchID.Trim() == branchID.Trim())
@@ -241,7 +232,6 @@ namespace tutorial.Controllers
                                                 })
                                                 .ToList();
 
-                    // รวมข้อมูลทั้งสองชุด
                     var combinedData = Maindata
                         .Union(Chondata)
                         .OrderBy(q => q.QPress)
@@ -250,7 +240,6 @@ namespace tutorial.Controllers
 
                     Debug.WriteLine($"Total Records Found: {combinedData.Count}");
 
-                    // ฟอร์แมตข้อมูลเพื่อแสดงผล
                     var formattedData = combinedData.Select(q => new CompleteQ
                     {
                         QNumber = q.QNumber,
@@ -282,14 +271,12 @@ namespace tutorial.Controllers
                 }
                 else
                 {
-                    // ถ้าเดือนหรือปีไม่ถูกต้อง
                     ViewBag.Message = "เดือนไม่ถูกต้องหรือปีไม่ถูกต้อง";
                     return View("Queue", new List<CompleteQ>());
                 }
             }
             catch (Exception ex)
             {
-                // ถ้าเกิดข้อผิดพลาด
                 ViewBag.Message = "เกิดข้อผิดพลาด: " + ex.Message;
                 return View("Queue", new List<CompleteQ>());
             }

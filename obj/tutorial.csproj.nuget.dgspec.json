@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\source\\repos\\tutorial\\tutorial\\tutorial.csproj": {}
+    "c:\\Users\\User\\source\\repos\\tutorial\\tutorial\\tutorial.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\source\\repos\\tutorial\\tutorial\\tutorial.csproj": {
+    "c:\\Users\\User\\source\\repos\\tutorial\\tutorial\\tutorial.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\source\\repos\\tutorial\\tutorial\\tutorial.csproj",
+        "projectUniqueName": "c:\\Users\\User\\source\\repos\\tutorial\\tutorial\\tutorial.csproj",
         "projectName": "tutorial",
-        "projectPath": "C:\\Users\\User\\source\\repos\\tutorial\\tutorial\\tutorial.csproj",
+        "projectPath": "c:\\Users\\User\\source\\repos\\tutorial\\tutorial\\tutorial.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\source\\repos\\tutorial\\tutorial\\obj\\",
+        "outputPath": "c:\\Users\\User\\source\\repos\\tutorial\\tutorial\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
