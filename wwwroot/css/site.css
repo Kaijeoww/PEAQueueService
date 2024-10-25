@@ -1,0 +1,209 @@
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background-color: whitesmoke;
+    backgorund-image: url('images/background-web.jpg');
+    margin: 10px; /* เพิ่มระยะห่างจากขอบเว็บ */
+    padding: 10px; /* เพิ่มระยะห่างภายใน */
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+header nav {
+    background-color: whitesmoke;
+    color: black;
+}
+
+    header nav a {
+        text-decoration: none;
+        color: whitesmoke;
+        margin: 0 3px;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+        header nav a:hover {
+            font-weight: bold;
+            color: whitesmoke;
+        }
+
+.nav-link {
+    color: black; /* ตั้งสีของตัวอักษรเป็นสีดำ */
+    text-decoration: none; /* ยกเลิกการขีดเส้นใต้ */
+    font-size: 18px;
+    transition: color 0.3s, transform 0.3s;
+}
+
+    .nav-link:hover {
+        text-decoration: underline; /* เพิ่มเส้นใต้เมื่อชี้เมาส์ */
+        color: purple; /* เปลี่ยนสีเป็นม่วงเมื่อ hover */
+        transform: scale(1.1); /* ให้สีคงเป็นสีดำขณะ hover */
+    }
+
+.table {
+    width: 100%;
+    border-collapse: collapse; /* รวมขอบตาราง */
+    margin-top: 20px;
+}
+
+    .table th {
+        background-color: #6a0dad; /* สีม่วงที่หัวตาราง */
+        color: white; /* สีข้อความในหัวตาราง */
+    }
+
+    .table th,
+    .table td {
+        border: 1px solid #d3d3d3; /* ขอบสีเทา */
+        padding: 12px; /* ระยะห่างในเซลล์ */
+        text-align: center; /* จัดกลางข้อความ */
+        font-size: 14px;
+    }
+
+    .table tbody tr:nth-child(odd) {
+        background-color: #f9f9f9; /* พื้นหลังของแถวที่เป็นเลขคี่เป็นสีเทาอ่อน */
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: #e6e6e6; /* พื้นหลังของแถวที่เป็นเลขคู่เป็นสีเทาอ่อนเข้มกว่า */
+    }
+
+    .table tbody tr:hover {
+        background-color: #d3d3d3; /* พื้นหลังเมื่อ hover แถว */
+    }
+
+.pagination {
+    margin-top: 20px; /* ระยะห่างด้านบน */
+    display: flex;
+    justify-content: center; /* จัดกลาง pagination */
+    font-size: 14px;
+}
+
+    .pagination a {
+        margin: 0 10px; /* ระยะห่างระหว่างลิงก์ */
+        color: #007BFF; /* สีน้ำเงินสำหรับลิงก์ */
+        text-decoration: none; /* ยกเลิกขีดเส้นใต้ */
+    }
+
+        .pagination a:hover {
+            text-decoration: underline; /* ขีดเส้นใต้เมื่อ hover */
+        }
+
+/* Dropdownlist */
+.form-control {
+    font-size: 14px;
+    height: auto;
+    width: 100%; /* ให้ทุก dropdown ยืดตามขนาดของ container */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+    .form-control:focus {
+        border-color: #6a0dad; /* สีขอบเมื่อโฟกัส */
+        box-shadow: 0 0 5px rgba(106, 13, 173, 0.5); /* เงาสีม่วงเมื่อโฟกัส */
+    }
+
+.form-group {
+    flex-grow: 1; /* ให้ทุก dropdown มีขนาดเท่าๆ กัน */
+    margin-right: 6px;
+    margin-bottom: 15px;
+}
+
+label {
+    color: black;
+    font-weight: bold;
+    margin-bottom: 5px; /* เพิ่มระยะห่างระหว่าง label กับ input */
+    display: block;
+}
+
+.form-container {
+    display: flex;
+    align-items: center; /* จัดแนวแนวนอนให้ dropdown และปุ่มอยู่กลาง */
+    justify-content: flex-start; /* จัดให้อยู่ที่ซ้าย */
+    gap: 20px; /* ระยะห่างระหว่าง dropdown และปุ่ม */
+}
+
+    .form-container button {
+        padding: 10px;
+        background-color: #6a0dad; /* สีม่วง */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        height: 100%; /* ให้ปุ่มมีขนาดสูงเท่า dropdown */
+    }
+
+        .form-container button:hover {
+            background-color: #5b0f95; /* เปลี่ยนสีเมื่อ hover */
+        }
+
+/* ---------------------------------------- */
+/* ปุ่ม Next ใช้กดไปหน้าถัดไปของข้อมูล */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin-top: 20px;
+}
+
+    .pagination a {
+        color: #6a0dad; /* สีม่วง */
+        text-decoration: none;
+        padding: 8px 16px;
+        border: 1px solid #ddd;
+        margin: 0 4px;
+        border-radius: 4px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+        .pagination a:hover {
+            background-color: #6a0dad;
+            color: #fff;
+        }
+
+    .pagination span {
+        padding: 8px 16px;
+        margin: 0 4px;
+        border-radius: 4px;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+    }
+
+/* ------------------------------------------ */
+
+/* ------------------------------------------ */
+/* Body และ Table ของหน้ารวมข้อมูล queue */
+body.QueueSummary {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 10px; /* ระยะห่างจากขอบเว็บ */
+    padding: 10px; /* เพิ่มระยะห่างภายใน */
+    line-height: 1.6; /* เพิ่มระยะห่างระหว่างบรรทัด */
+}
+
+/* ตกแต่งหัวข้อ */
+h2.QueueSummary {
+    text-align: center;
+    color: #6a0dad; /* เปลี่ยนเป็นสีม่วง */
+    margin-bottom: 30px; /* เพิ่มระยะห่างด้านล่าง */
+    font-size: 36px; /* ปรับขนาดตัวอักษรให้ใหญ่ขึ้น */
+    font-weight: bold; /* เพิ่มน้ำหนักตัวอักษรให้หนาขึ้น */
+    border-bottom: 3px solid #6a0dad; /* ทำให้ขอบด้านล่างเป็นสีม่วง */
+    padding-bottom: 15px; /* เพิ่มระยะห่างด้านล่าง */
+    text-transform: uppercase; /* ทำให้ข้อความเป็นตัวพิมพ์ใหญ่ */
+    letter-spacing: 1px; /* เพิ่มระยะห่างระหว่างตัวอักษร */
+}
+
+/* --------------------------------------------- */

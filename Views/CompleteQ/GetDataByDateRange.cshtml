@@ -1,0 +1,121 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<tutorial.Models.CompleteQ>
+
+@{
+    ViewBag.Title = "Queue Data";
+}
+
+
+<h2 class="QueueSummary">PEA SERVICE QUEUE</h2>
+
+
+@using (Html.BeginForm("GetDataByDateRange", "CompleteQ", FormMethod.Post))
+{
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="branchID">Branch:</label>
+            @Html.DropDownList("branchID", ViewBag.BranchID as SelectList, "Select Branch", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="StartMonth">เดือนเริ่มต้น:</label>
+            @Html.DropDownList("startmonth", ViewBag.StartMonth as SelectList, "เลือกเดือนเริ่มต้น", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="StartYear">ปีเริ่มต้น:</label>
+            @Html.DropDownList("startyear", ViewBag.StartYear as SelectList, "เลือกปีเริ่มต้น", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="EndMonth">เดือนสิ้นสุด:</label>
+            @Html.DropDownList("endmonth", ViewBag.EndMonth as SelectList, "เลือกเดือนสิ้นสุด", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="EndYear">ปีสิ้นสุด:</label>
+            @Html.DropDownList("endyear", ViewBag.EndYear as SelectList, "เลือกปีสิ้นสุด", new { @class = "form-control" })
+        </div>
+
+        <div class="button col-md-2 text-right">
+            <label>&nbsp;</label> <!-- สร้าง label ว่างเพื่อการจัดตำแหน่ง -->
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
+
+
+
+
+
+
+@if (!String.IsNullOrEmpty(ViewBag.Message))
+{
+    <p>@ViewBag.Message</p>
+}
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-warning">
+        @ViewBag.Message
+    </div>
+}
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>หมายเลขคิว</th>
+                <th>เวลามากดคิว</th>
+                <th>เวลาคิวเริ่ม</th>
+                <th>เวลาคิวสิ้นสุด</th>
+                <th>รหัสเคาน์เตอร์</th>
+                <th>รหัสผู้ใช้</th>
+                <th>สถานะคิว</th>
+                <th>รหัสสาขา</th>
+                <th>รหัสกลุ่มบริการ</th>
+                <th>เวลารอเริ่มต้น (นาที)</th>
+                <th>เวลารอสิ้นสุด (นาที)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var CompleteQ in Model)
+            {
+                <tr>
+                    <td>@CompleteQ.QNumber</td>
+                    <td>@CompleteQ.QPress</td>
+                    <td>@CompleteQ.QBegin</td>
+                    <td>@CompleteQ.QEnd</td>
+                    <td>@CompleteQ.CounterID</td>
+                    <td>@CompleteQ.UserID</td>
+                    <td>@CompleteQ.QStatus</td>
+                    <td>@CompleteQ.BranchID</td>
+                    <td>@CompleteQ.ServiceGroupID</td>
+                    <td>@CompleteQ.TimeToBeginFormatted</td>
+                    <td>@CompleteQ.TimeToEndFormatted</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+
+<div class="pagination">
+    @if (ViewBag.CurrentPage > 1)
+    {
+        <a href="@Url.Action("GetDataByDateRange", new { page = ViewBag.CurrentPage - 1 })">Previous</a>
+    }
+
+    Page @ViewBag.CurrentPage of @ViewBag.TotalPages
+
+    @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+    {
+        <a href="@Url.Action("GetDataByDateRange", new { page = ViewBag.CurrentPage + 1 })">Next</a>
+    }
+</div>
+

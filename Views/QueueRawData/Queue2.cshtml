@@ -1,0 +1,100 @@
+﻿@model tutorial.Models.FilterMViewModel
+
+@{
+    ViewBag.Title = "Queue Summary";
+    string[] MonthName = new string[] { "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม" };
+
+}
+
+
+<!-- แสดงข้อมูล Queue Data -->
+<h2 class="QueueSummary">Queue Service Summary</h2>
+
+@using (Html.BeginForm("FilterM", "QueueRawData", FormMethod.Post))
+{
+    <div class="form-container">
+        <!-- สาขา -->
+        <div class="form-group col-md-2">
+            <label for="branchID">Branch:</label>
+            @Html.DropDownListFor(m => m.BranchID, Model.Branches, "All", new { @class = "form-control" })
+        </div>
+
+        <!-- เดือนเริ่มต้น -->
+        <div class="form-group col-md-2">
+            <label for="StartMonth">เดือนเริ่มต้น:</label>
+            @Html.DropDownListFor(m => m.StartMonth, Model.Months, "เลือกเดือนเริ่มต้น", new { @class = "form-control" })
+        </div>
+
+        <!-- ปีเริ่มต้น -->
+        <div class="form-group col-md-2">
+            <label for="StartYear">ปีเริ่มต้น:</label>
+            @Html.DropDownListFor(m => m.StartYear, Model.Years, "เลือกปีเริ่มต้น", new { @class = "form-control" })
+        </div>
+
+        <!-- เดือนสิ้นสุด -->
+        <div class="form-group col-md-2">
+            <label for="EndMonth">เดือนสิ้นสุด:</label>
+            @Html.DropDownListFor(m => m.EndMonth, Model.Months, "เลือกเดือนสิ้นสุด", new { @class = "form-control" })
+        </div>
+
+        <!-- ปีสิ้นสุด -->
+        <div class="form-group col-md-2">
+            <label for="EndYear">ปีสิ้นสุด:</label>
+            @Html.DropDownListFor(m => m.EndYear, Model.Years, "เลือกปีสิ้นสุด", new { @class = "form-control" })
+        </div>
+
+        <!-- ปุ่มค้นหา -->
+        <div class="button col-md-2 text-right">
+            <label>&nbsp;</label> <!-- สร้าง label ว่างเพื่อการจัดตำแหน่ง -->
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
+<div class="table">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>สาขา</th>
+                <th>ปี</th>
+                <th>เดือน</th>
+                <th>จำนวนคิว</th>
+                <th>เวลาเฉลี่ยในการประมวลผล</th>
+                <th>เวลาเฉลี่ยในการรอคอย</th>
+                <th>เวลาที่ใช้หลังจากการรอคอย</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.QueueData == null || !Model.QueueData.Any())
+            {
+            }
+            else
+            {
+                @foreach (var item in Model.QueueData)
+                {
+                    <tr>
+                        <td>@item.BranchName</td>
+                        <td>@item.Year</td>
+                        <td>
+                            @if (item.Month >= 1 && item.Month <= 12)
+                            {
+                                @MonthName[item.Month - 1] <!-- แปลงเลขเดือนเป็นชื่อเดือน -->
+                            }
+                            else
+                            {
+                                @item.Month <!-- กรณีที่ข้อมูลเลขเดือนผิดปกติ -->
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink(item.QNumberCount.ToString(), "SummaryQ", new { BranchId = item.BranchID, year = item.Year, month = item.Month })
+                        </td>
+                        <td>@item.AvgProcessingTime</td>
+                        <td>@item.AvgWaitingTime</td>
+                        <td>@item.ProcessingTimeAfterWaiting</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+</div>

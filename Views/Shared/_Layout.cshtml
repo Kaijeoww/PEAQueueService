@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PEA QUEUE</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/tutorial.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
+            <div class="container-fluid d-flex align-items-center">
+                <!-- Logo -->
+                <a class="navbar-brand d-flex align-items-center me-3" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/PEA-Logo.png" alt="PEA Logo" style="max-width: 100px; height: auto;" />
+                </a>
+
+                <!-- Navigation -->
+                <div class="collapse navbar-collapse d-flex align-items-center">
+                    <ul class="navbar-nav flex-grow-1 d-flex align-items-center">
+                        <li class="nav-item text-center">
+                            <a class="nav-link d-flex flex-column align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home mb-1"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link d-flex flex-column align-items-center" asp-area="" asp-controller="CompleteQ" asp-action="Queue">
+                                <i class="fas fa-list mb-1"></i>
+                                <span>Service Queue</span>
+                            </a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link d-flex flex-column align-items-center" asp-area="" asp-controller="QueueRawData" asp-action="Queue2">
+                                <i class="fas fa-list-alt mb-1"></i>
+                                <span>Queue Summary</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+    </header>
+    <div class="copyright">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="copyright">
+            &copy; 2567 - tutorial - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

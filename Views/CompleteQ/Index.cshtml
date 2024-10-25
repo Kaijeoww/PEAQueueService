@@ -1,0 +1,37 @@
+﻿@model IEnumerable<tutorial.Models.CompleteQ>;
+
+@{
+    <h1>TEST</h1>
+    <table class="table"> 
+        <thead>
+            <tr>
+                <th>QNumber</th>
+                <th>QPress</th>
+                <th>QBegin</th>
+                <th>QEnd</th>
+                <th>CounterID</th>
+                <th>UserID</th>
+                <th>QStatus</th>
+                <th>BranchID</th>
+                <th>ServiceGroupID</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var CompleteQs in Model)
+            {
+                    <tr>
+                    <td>@CompleteQs.QNumber</td>
+                    <td>@CompleteQs.QPress</td>
+                    <td>@CompleteQs.QBegin</td>
+                    <td>@CompleteQs.QEnd</td>
+                    <td>@CompleteQs.CounterID</td>
+                    <td>@CompleteQs.UserID</td>
+                    <td>@CompleteQs.QStatus</td>
+                    <td>@CompleteQs.BranchID</td>
+                    <td>@CompleteQs.ServiceGroupID</td>
+                    </tr>
+            }
+        </tbody>
+    </table>
+    
+}

@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<tutorial.Models.CompleteQ>
+
+@{
+}
+
+
+<h2 class="QueueSummary" align="center">Service Queue for Selected Month</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>หมายเลขคิว</th>
+            <th>เวลามากดคิว</th>
+            <th>เวลาคิวเริ่ม</th>
+            <th>เวลาคิวสิ้นสุด</th>
+            <th>รหัสเคาน์เตอร์</th>
+            <th>รหัสผู้ใช้</th>
+            <th>สถานะคิว</th>
+            <th>รหัสสาขา</th>
+            <th>รหัสกลุ่มบริการ</th>
+            <th>เวลารอเริ่มต้น (นาที)</th>
+            <th>เวลารอสิ้นสุด (นาที)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var CompleteQ in Model)
+        {
+            <tr>
+                <td>@CompleteQ.QNumber</td>
+                <td>@(CompleteQ.QPress.HasValue ? CompleteQ.QPress.Value.ToString("dd/MM/yyyy HH:mm:ss") : "N/A")</td>
+                <td>@(CompleteQ.QBegin.HasValue ? CompleteQ.QBegin.Value.ToString("dd/MM/yyyy HH:mm:ss") : "N/A")</td>
+                <td>@(CompleteQ.QEnd.HasValue ? CompleteQ.QEnd.Value.ToString("dd/MM/yyyy HH:mm:ss") : "N/A")</td>
+                <td>@CompleteQ.CounterID</td>
+                <td>@CompleteQ.UserID</td>
+                <td>@CompleteQ.QStatus</td>
+                <td>@CompleteQ.BranchID</td>
+                <td>@CompleteQ.ServiceGroupID</td>
+                <td>@CompleteQ.TimeToBeginFormatted</td>
+                <td>@CompleteQ.TimeToEndFormatted</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

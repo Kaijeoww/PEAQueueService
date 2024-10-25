@@ -1,0 +1,22 @@
+﻿@model tutorial.Models.ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">เกิดข้อผิดพลาด</h1>
+<h2 class="text-danger">มีข้อผิดพลาดเกิดขึ้นขณะประมวลผลคำขอของคุณ</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <p>
+        <strong>ข้อความข้อผิดพลาด:</strong> <code>@Model.ErrorMessage</code>
+    </p>
+}
+
+@if (!string.IsNullOrEmpty(Model.StackTrace))
+{
+    <details>
+        <summary>รายละเอียดเพิ่มเติม (Stack Trace)</summary>
+        <pre>@Model.StackTrace</pre>
+    </details>
+}
