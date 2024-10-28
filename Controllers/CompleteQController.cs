@@ -15,12 +15,10 @@ namespace tutorial.Controllers
     public class CompleteQController : Controller
     {
         private readonly DataContext _context;
-        private readonly ChonburiDataContext _CDataContext;
 
-        public CompleteQController(DataContext context, ChonburiDataContext Chonburicontext)
+        public CompleteQController(DataContext context)
         {
             _context = context;
-            _CDataContext = Chonburicontext;
         }
 
         [HttpGet]
@@ -88,31 +86,7 @@ namespace tutorial.Controllers
            .OrderBy(q => q.QPress)
            .ToList();
 
-                var Chondata = _CDataContext.CompleteQ
-                    .Where(q => q.QNumber != null && q.QBegin.HasValue && q.QEnd.HasValue && q.QPress.HasValue && q.CounterID != null && q.UserID != null && q.QStatus != null && q.BranchID != null && q.ServiceGroupID != null)
-                    .Select(q => new CompleteQ
-                    {
-                        QNumber = q.QNumber ?? "N/A",
-                        QPress = q.QPress,
-                        QBegin = q.QBegin,
-                        QEnd = q.QEnd,
-                        CounterID = q.CounterID ?? "N/A",
-                        UserID = q.UserID ?? "N/A",
-                        QStatus = q.QStatus ?? "N/A",
-                        BranchID = q.BranchID ?? "N/A",
-                        ServiceGroupID = q.ServiceGroupID ?? "N/A"
-                    })
-                    .OrderBy(q => q.QPress)
-                    .ToList();
-
-                var combined = Maindata
-                    .Union(Chondata)
-                    .OrderBy(q => q.QPress)  
-            .Skip((page - 1) * pageSize) 
-            .Take(pageSize)
-                    .ToList();
-
-                var formattedData = combined.Select(q => new CompleteQ
+                var formattedData= Maindata.Select(q => new CompleteQ
                 {
                     QNumber = q.QNumber,
                     QPress = q.QPress,
@@ -132,7 +106,7 @@ namespace tutorial.Controllers
     TimeSpan.FromSeconds((q.QEnd.Value - q.QPress.Value).TotalSeconds).ToString(@"hh\:mm\:ss") : "00:00:00" : "00:00:00"
                 }).ToList();
 
-                int totalRecords = Maindata.Union(Chondata).Count();
+                int totalRecords = Maindata.Count();
                 int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
 
                 ViewBag.CurrentPage = page;
@@ -215,32 +189,7 @@ namespace tutorial.Controllers
                                    })
                                    .ToList();
 
-                    var Chondata = _CDataContext.CompleteQ
-                                                .Where(q => q.QPress >= startDate && q.QPress <= endDate &&
-                                                            q.BranchID.Trim() == branchID.Trim())
-                                                .Select(q => new CompleteQ
-                                                {
-                                                    QNumber = q.QNumber ?? "N/A",
-                                                    QPress = q.QPress,
-                                                    QBegin = q.QBegin,
-                                                    QEnd = q.QEnd,
-                                                    CounterID = q.CounterID ?? "N/A",
-                                                    UserID = q.UserID ?? "N/A",
-                                                    QStatus = q.QStatus ?? "N/A",
-                                                    BranchID = q.BranchID ?? "N/A",
-                                                    ServiceGroupID = q.ServiceGroupID ?? "N/A"
-                                                })
-                                                .ToList();
-
-                    var combinedData = Maindata
-                        .Union(Chondata)
-                        .OrderBy(q => q.QPress)
-
-                        .ToList();
-
-                    Debug.WriteLine($"Total Records Found: {combinedData.Count}");
-
-                    var formattedData = combinedData.Select(q => new CompleteQ
+                    var formattedData = Maindata.Select(q => new CompleteQ
                     {
                         QNumber = q.QNumber,
                         QPress = q.QPress,

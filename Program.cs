@@ -11,10 +11,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDbContext<ChonburiDataContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ChonburiConnection")));
-
-
 builder.Services.AddHangfire(configuration =>
 configuration.UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection")));
 
