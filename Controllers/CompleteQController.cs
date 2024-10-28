@@ -106,13 +106,16 @@ namespace tutorial.Controllers
     TimeSpan.FromSeconds((q.QEnd.Value - q.QPress.Value).TotalSeconds).ToString(@"hh\:mm\:ss") : "00:00:00" : "00:00:00"
                 }).ToList();
 
-                int totalRecords = Maindata.Count();
-                int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+                int totalRecords = formattedData.Count();
+        int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
 
-                ViewBag.CurrentPage = page;
-                ViewBag.TotalPages = totalPages;
+        ViewBag.CurrentPage = page;
+        ViewBag.TotalPages = totalPages;
 
-                return View(formattedData);
+        // Implement pagination
+        var pagedData = formattedData.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+        return View(pagedData);
             }
             catch (Exception ex)
             {
